@@ -1,6 +1,6 @@
 # Distributed Web Infrastructure
 
-![Image of a distributed web infrastructure](https://imgur.com/0YOBIIr)
+![Image of a distributed web infrastructure](https://i.imgur.com/0YOBIIr.jpg)
 
 ## Description
 
