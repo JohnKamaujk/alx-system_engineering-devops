@@ -1,10 +1,5 @@
 #!/usr/bin/env bash
+# Connects to server 100.25.132.225 with key in ~/.ssh/school
 
-# Define the server address
-server_address="100.25.132.225"
+ssh -i ~/.ssh/school ubuntu@100.25.132.225
 
-# Define the private key file
-private_key="~/.ssh/school"
-
-# Use SSH with single-character flags to connect
-ssh -i $private_key ubuntu@$server_address
