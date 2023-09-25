@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# This Bash script transfers a file from a client to a remote server.
+# It accepts four arguments:
+#   - The path to the file to be transferred.
+#   - The IP address of the target server.
+#   - The username to use when connecting via SCP.
+#   - The path to the SSH private key used for authentication.
+
+if [ $# -lt 4 ]; then
+  echo "Usage: 0-transfer_file PATH_TO_FILE IP USERNAME PATH_TO_SSH_KEY"
+else
+  # Use SCP to transfer the specified file to the target server's home directory.
+  # Disable strict host key checking for a smoother transfer process.
+  scp -o StrictHostKeyChecking=no -i "$4" "$1" "$3@$2":~
+fi
