@@ -1,14 +1,7 @@
 #!/usr/bin/env bash
-# Bash script to install and configure Nginx on web server
+# Install nginx on your web-01 server
 
-# Update package lists to ensure we have the latest information
 sudo apt-get -y update
-
-# Install Nginx web server
 sudo apt-get -y install nginx
-
-# Create a simple HTML file with "Hello World!"
 sudo sh -c 'echo "Hello World!" > /var/www/html/index.nginx-debian.html'
-
-# Start the Nginx service to make it listen for incoming web requests
 sudo service nginx start
