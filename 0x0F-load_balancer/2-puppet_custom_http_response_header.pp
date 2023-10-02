@@ -1,24 +1,22 @@
-# instal and configure nginx
-exec { 'apt-update':
-  command     => 'apt-get -y update',
-  path        => '/usr/bin:/bin',
-  refreshonly => true,
-}
-exec { 'apt-get':
-  command => 'apt-get -y install nginx',
-  path    => '/usr/bin:/bin',
-  require => Exec['apt-update'],
+# add a custom HTTP header X-Served-By
+
+exec {'update_system':
+  command => '/usr/bin/apt-get update',
 }
 
--> file_line { 'add_header':
-  path   => '/etc/nginx/sites-enabled/default',
-  after  => "^\tlocation / {",
-  line   => "\t\tadd_header X-Served-By \"${::hostname}\";",
-  notify => Exec['restart_nginx'],
+package {'nginx':
+  ensure  => 'installed',
+  require => Exec['update_system'],
 }
 
-exec { 'restart_nginx':
-  command     => '/usr/sbin/service nginx restart',
-  refreshonly => true,
-  subscribe   => File_line['add_redirect'],
+$custom_header = "         add_header X-Served-By \"${::hostname}\";"
+
+exec {'insert_custom_header':
+command  => "echo '${custom_header}' | sudo sed -i '50r /dev/stdin' /etc/nginx/sites-enabled/default",
+  provider => 'shell',
+}
+
+service {'nginx':
+  ensure  => 'running',
+  require => Package['nginx'],
 }
