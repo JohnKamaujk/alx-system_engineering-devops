@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# Make it sweet and short
+sed -i s/8080/80/ /etc/nginx/sites-enabled/default
+service nginx restart > /dev/null
+kill "$(pgrep nginx | head -1)"
