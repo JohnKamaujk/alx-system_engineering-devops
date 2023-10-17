@@ -20,9 +20,9 @@ USE tyrell_corp;
 
 CREATE TABLE nexus6 (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(50));
 
-INSERT INTO nexus6 (name) VALUES (Sylvain);
+INSERT INTO nexus6 (name) VALUES ('Leon');
 
-GRANT SELECT ON nexus6.* TO 'holberton_user'@'localhost';
+GRANT SELECT ON tyrell_corp.nexus6 TO 'holberton_user'@'localhost';
 
 # Task 3:
 ## only on web-01:
