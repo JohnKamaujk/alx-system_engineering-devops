@@ -20,7 +20,7 @@ def get_employee_todo_progress(employee_id):
 
     user_data = user_response.json()
     user_id = user_data.get('id')
-    user_name = user_data.get('name')
+    user_name = user_data.get('username')
 
     # Fetch todos data for a specific user using the query parameter
     params = {"userId": employee_id}
