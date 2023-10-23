@@ -46,7 +46,7 @@ def get_employee_todo_progress(employee_id):
 
     for todo in todos_data:
         if todo.get('completed'):
-            print(f"    {todo.get('title')}")
+            print(f"	 {todo.get('title')}")
 
 
 if __name__ == "__main__":
