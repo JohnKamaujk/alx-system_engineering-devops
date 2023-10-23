@@ -31,4 +31,4 @@ def user_data_from_api(userId):
 
 
 if __name__ == "__main__":
-    user_data_from_api(sys.argv[1])
+    user_data_from_api(int(sys.argv[1]))
