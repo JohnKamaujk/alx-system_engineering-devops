@@ -18,14 +18,18 @@ def get_employee_todo_progress(employee_id):
         return
 
     user_data = user_response.json()
-    user_name = user_data['name']
+    user_name = user_data.get('name')
+
+    if user_name is None:
+        print(f"Error: User name not found for ID {employee_id}")
+        return
 
     # Fetch todos data for a specific user using the query parameter
     params = {"userId": employee_id}
     todos_response = requests.get(todos_url, params=params)
 
     if todos_response.status_code != 200:
-        print(f"Error:Could not retrieve data for user ID {employee_id}")
+        print(f"Error: Could not retrieve data for user ID {employee_id}")
         return
 
     todos_data = todos_response.json()
@@ -35,15 +39,14 @@ def get_employee_todo_progress(employee_id):
         return
 
     total_tasks = len(todos_data)
-    completed_tasks = sum(1 for todo in todos_data if todo['completed'])
+    completed_tasks = sum(1 for todo in todos_data if todo.get('completed'))
 
-    print(f"Employee {user_name} is done with tasks"
-        f"({completed_tasks}/{total_tasks}):")
-
+    print(f"Employee {user_name} is done with tasks "
+          f"({completed_tasks}/{total_tasks}):")
 
     for todo in todos_data:
-        if todo['completed']:
-            print(f"    {todo['title']}")
+        if todo.get('completed'):
+            print(f"    {todo.get('title')}")
 
 
 if __name__ == "__main__":
