@@ -2,7 +2,7 @@
 """
 Script that, using this REST API,
 for a given employee ID, returns information
-about his/her TODO list progress.
+about his/her list progress.
 """
 import requests
 import sys
@@ -27,7 +27,7 @@ def user_data_from_api(userId):
           .format(name, completed_task, total_task))
     for task in data:
         if task.get("completed"):
-            print("\t {}".format(task.get("title")))
+            print("	 {}".format(task.get("title")))
 
 
 if __name__ == "__main__":
