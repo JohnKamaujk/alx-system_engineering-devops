@@ -18,15 +18,16 @@ def user_data_from_api(userId):
     data = response.json()
 
     total_task = len(data)
+    done_tasks = []
     completed_task = 0
     for task in data:
         if task.get("completed"):
             completed_task += 1
+            done_tasks.append(task)
     print("Employee {} is done with tasks({}/{}):"
           .format(name, completed_task, total_task))
-    for task in data:
-        if task.get("completed"):
-            print("	 {}".format(task.get("title")))
+    for task in done_tasks:
+        print("	 {}".format(task.get("title")))
 
 
 if __name__ == "__main__":
