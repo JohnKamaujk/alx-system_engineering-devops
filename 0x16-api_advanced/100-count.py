@@ -3,8 +3,7 @@
 import requests
 
 
-def count_words(subreddit, word_list, after=None):
-    counts = {}
+def count_words(subreddit, word_list, after=None, counts={}):
     url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
 
     # Set a custom User-Agent and disable following redirects
