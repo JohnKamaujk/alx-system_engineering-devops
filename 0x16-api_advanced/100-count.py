@@ -24,36 +24,37 @@ def count_words(subreddit, word_list, after=None, counts={}):
     response = requests.get(url, headers=headers, params=params,
                             allow_redirects=False)
 
-    try:
+    if response.status_code == 200:
         data = response.json()
-        if response.status_code == 404:
-            raise Exception
-    except Exception:
+
+        # Extract and parse the titles of the posts
+        for post in data.get('data', {}).get('children', []):
+            title = post.get('data', {}).get('title', '').lower()
+            words = title.split()
+
+            # Count the occurrences of keywords in the title
+            for word in word_list:
+                if word.lower() in words:
+                    times = words.count(word.lower())
+                    if counts.get(word) is None:
+                        counts[word] = times
+                    else:
+                        counts[word] += times
+
+        # Check if there are more pages (pagination) and continue the recursion
+        after = data.get('data', {}).get('after')
+        if after:
+            return count_words(subreddit, word_list, after, counts)
+
+        if len(counts) == 0:
+            return
+
+        # If no more pages, print the sorted results
+        sorted_counts = sorted(counts.items(), key=lambda x: (-x[1], x[0]))
+        for word, count in sorted_counts:
+            print("{}: {}".format(word, count))
+
+    elif response.status_code == 404:
         return
-
-    # Extract and parse the titles of the posts
-    for post in data.get('data', {}).get('children', []):
-        title = post.get('data', {}).get('title', '').lower()
-        words = title.split()
-
-        # Count the occurrences of keywords in the title
-        for word in word_list:
-            if word.lower() in words:
-                times = words.count(word.lower())
-                if counts.get(word) is None:
-                    counts[word] = times
-                else:
-                    counts[word] += times
-
-    # Check if there are more pages (pagination) and continue the recursion
-    after = data.get('data', {}).get('after')
-    if after:
-        return count_words(subreddit, word_list, after, counts)
-
-    if len(counts) == 0:
+    else:
         return
-
-    # If no more pages, print the sorted results
-    sorted_counts = sorted(counts.items(), key=lambda x: (-x[1], x[0]))
-    for word, count in sorted_counts:
-        print("{}: {}".format(word, count))
