@@ -47,8 +47,6 @@ def count_words(subreddit, word_list, after=None, counts={}):
             print("{}: {}".format(word, count))
 
     elif response.status_code == 404:
-        print("")
         return
     else:
-        print("")
         return
