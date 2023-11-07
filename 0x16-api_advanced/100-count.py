@@ -40,7 +40,7 @@ def count_words(subreddit, word_list, after=None, counts={}):
 
         if len(counts) == 0:
             print("")
-            pass
+            return
 
         # If no more pages, print the sorted results
         sorted_counts = sorted(counts.items(), key=lambda x: (-x[1], x[0]))
@@ -48,4 +48,4 @@ def count_words(subreddit, word_list, after=None, counts={}):
             print("{}: {}".format(word, count))
     else:
         print("")
-        pass
+        return
