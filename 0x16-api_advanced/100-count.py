@@ -3,7 +3,7 @@
 import requests
 
 
-def count_words(subreddit, word_list, after=None, counts={}, count=0):
+def count_words(subreddit, word_list, after=None, counts={}):
     """Prints counts of given words found in hot posts of a given subreddit.
 
     Args:
@@ -16,7 +16,7 @@ def count_words(subreddit, word_list, after=None, counts={}, count=0):
 
     # Set a custom User-Agent and disable following redirects
     headers = {'User-Agent': 'RedditDataAnalyzer/1.0 (ALX Africa)'}
-    params = {'limit': 100, "count": count}  # Limit number of posts to 100 max
+    params = {'limit': 100}  # Limit the number of posts to 100 (maximum)
 
     if after:
         params['after'] = after
@@ -26,8 +26,6 @@ def count_words(subreddit, word_list, after=None, counts={}, count=0):
 
     if response.status_code == 200:
         data = response.json()
-
-        count += data.get("dist")
 
         # Extract and parse the titles of the posts
         for post in data.get('data', {}).get('children', []):
@@ -46,7 +44,7 @@ def count_words(subreddit, word_list, after=None, counts={}, count=0):
         # Check if there are more pages (pagination) and continue the recursion
         after = data.get('data', {}).get('after')
         if after:
-            return count_words(subreddit, word_list, after, counts, count)
+            return count_words(subreddit, word_list, after, counts)
 
         if len(counts) == 0:
             return
