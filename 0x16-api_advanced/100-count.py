@@ -28,7 +28,7 @@ def count_words(subreddit, word_list, after=None):
             # Count the occurrences of keywords in the title
             for word in word_list:
                 if word.lower() in words:
-                    counts[word.lower()] += words.count(word.lower())
+                    counts[word] += words.count(word.lower())
 
         # Check if there are more pages (pagination) and continue the recursion
         after = data.get('data', {}).get('after')
