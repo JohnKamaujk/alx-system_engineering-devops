@@ -29,7 +29,6 @@ def count_words(subreddit, word_list, after=None, counts={}):
         if response.status_code == 404:
             raise Exception
     except Exception:
-        print("")
         return
 
     # Extract and parse the titles of the posts
@@ -52,7 +51,6 @@ def count_words(subreddit, word_list, after=None, counts={}):
         return count_words(subreddit, word_list, after, counts)
 
     if len(counts) == 0:
-        print("")
         return
 
     # If no more pages, print the sorted results
