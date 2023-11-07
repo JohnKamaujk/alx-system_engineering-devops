@@ -4,6 +4,14 @@ import requests
 
 
 def count_words(subreddit, word_list, after=None, counts={}):
+    """Prints counts of given words found in hot posts of a given subreddit.
+
+    Args:
+        subreddit (str): The subreddit to search.
+        word_list (list): The list of words to search for in post titles.
+        after (str): The parameter for the next page of the API results.
+        counts (dict): The parameter of results matched thus far.
+    """
     url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
 
     # Set a custom User-Agent and disable following redirects
